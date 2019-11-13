@@ -1,3 +1,4 @@
+/*
 //////////////////////////////////////////////////////////////section 1: setInterval
 var time = 0;
 var timer = setInterval(() => {
@@ -26,5 +27,14 @@ const MyCount = require('./count');;
 console.log(MyCount.counter(['Red','Green','Blue']));
 console.log(MyCount.adder(5,9));
 console.log(MyCount.adder(5, MyCount.pi));
+*/
+//////////////////////////////////////////////////////section 5: file system or module 'fs'
+var fs = require('fs');
 
-//////////////////////////////////////////////////////section 5:
+fs.readFile('README.md', 'utf8', function(err, data){
+  console.log(data.toString());
+  fs.writeFile('txtFile.txt', data, function (err) {
+    if (err) throw err;
+    console.log('Replaced!');
+  });
+});
