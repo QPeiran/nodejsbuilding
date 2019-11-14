@@ -55,15 +55,3 @@ stream.on("data", function(data) {
     console.log('Received data: "' + data + '"');
 })
 stream.write("It works!");
-
-//////////////////////////////////////////////////////section 6: file system or module 'fs'
-var fs = require('fs');
-
-fs.readFile('README.md', 'utf8', function(err, data){
-  console.log(data.toString());
-  fs.writeFile('txtFile.txt', data, function (err) {
-    if (err) throw err;
-    console.log('Replaced!');
-  });
-});
-//both readFile and writeFile need a call back function!*/
