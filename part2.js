@@ -47,4 +47,13 @@ fs.unlink('./text/txtFile.txt', function (err) {
   })
 })
 */
+//smarter way to avoid callback hell by using promise chain
+
+const fsPromises = fs.promises;
+var data;
+fsPromises.readFile("README.md")
+//.then(console.log("promise resolved"));
+//.then((data) => {console.log(data + "\n data loaded");})
+.then((data) => fsPromises.writeFile("README.md", data + "\n data loaded"))
+
 ////////////////////////////section 7:
