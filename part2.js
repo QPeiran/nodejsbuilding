@@ -48,6 +48,7 @@ fs.unlink('./text/txtFile.txt', function (err) {
 })
 */
 //smarter way to avoid callback hell by using promise chain
+// note fsPromises is in beta
 
 const fsPromises = fs.promises;
 var data;
@@ -56,4 +57,13 @@ fsPromises.readFile("README.md")
 //.then((data) => {console.log(data + "\n data loaded");})
 .then((data) => fsPromises.writeFile("README.md", data + "\n data loaded"))
 
-////////////////////////////section 7:
+////////////////////////////section 7: Clients & Servers
+var http = require('http');
+
+var server = http.createServer((req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Greetings from Peiran!')
+});
+
+server.listen(8080,'127.0.0.1');
+console.log('listening');
