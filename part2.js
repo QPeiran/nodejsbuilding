@@ -49,14 +49,14 @@ fs.unlink('./text/txtFile.txt', function (err) {
 */
 //smarter way to avoid callback hell by using promise chain
 // note fsPromises is in beta
-
+/*
 const fsPromises = fs.promises;
 var data;
 fsPromises.readFile("README.md")
 //.then(console.log("promise resolved"));
 //.then((data) => {console.log(data + "\n data loaded");})
 .then((data) => fsPromises.writeFile("README.md", data + "\n data loaded"))
-
+*/
 ////////////////////////////section 7: Clients & Servers
 const http = require('http');
 
@@ -64,8 +64,17 @@ var server = http.createServer((req, res) => {
   console.log('request was made: ' + req.url);
   res.writeHead(200, {'Content-Type': 'text/plain'});
   fs.readFile("README.md", 'utf8', (err,data) => {
-    console.log(data);
+    //console.log(data);
     res.write(data);
     res.end('Greetings from Peiran again!');
   });
 }).listen(8080, '127.0.0.1');
+
+///////////////////////////section 8: readable and writeable stream
+
+var myReadStream = fs.createReadStream(__dirname + '/README.md');
+
+myReadStream.on('data', (chunk) => {
+  console.log("new chunk ");
+  console.log(chunk);
+});
