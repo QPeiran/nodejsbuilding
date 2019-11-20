@@ -57,24 +57,49 @@ fsPromises.readFile("README.md")
 //.then((data) => {console.log(data + "\n data loaded");})
 .then((data) => fsPromises.writeFile("README.md", data + "\n data loaded"))
 */
-////////////////////////////section 7: Clients & Servers
+///////////////////////////section 7: stream & pipe
 const http = require('http');
+/*
+var server = http.createServer((req, res) => {
+  console.log('request was made: ' + req.url);
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  fs.readFile("README.md", 'utf8', (err,data) => {
+    //console.log(data);
+    res.write(data);
+    res.end('Greetings from Peiran!');
+  });
+}).listen(8080, '127.0.0.1');  ///////////////readFile then res.write
 
 var server = http.createServer((req, res) => {
   console.log('request was made: ' + req.url);
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  fs.readFile("README.md", 'utf8', (err,data) => {
-    //console.log(data);
-    res.write(data);
+  fs.createReadStream(__dirname + '/README.md', 'utf8')
+    .on('data', (chunks) => {
+    console.log("new chunk ");
+    console.log(chunks);
+    fs.write(chunks);
     res.end('Greetings from Peiran again!');
   });
-}).listen(8080, '127.0.0.1');
+}).listen(8080, '127.0.0.1');  /////////////createReadStream then res.write
+*/
+////////////////res is a wirteable stream
 
-///////////////////////////section 8: readable and writeable stream
-
-var myReadStream = fs.createReadStream(__dirname + '/README.md');
-
-myReadStream.on('data', (chunk) => {
-  console.log("new chunk ");
-  console.log(chunk);
+var server = http.createServer((req, res) => {
+  console.log('request was made: ' + req.url);
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  fs.createReadStream(__dirname + '/README.md', 'utf8')
+    .pipe(res);
+},'request').listen(8080, '127.0.0.1');//the 'request' parameter can be either pos1 or pos2?
+////////same as below
+/*
+var server = http.createServer();
+server.on('request',(req,res) => {
+  console.log('request was made: ' + req.url);
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  fs.createReadStream(__dirname + '/README.md', 'utf8')
+  .pipe(res);
 });
+server.listen(8080, '127.0.0.1');
+
+*/
+//////////////////////////////////////////////////////
