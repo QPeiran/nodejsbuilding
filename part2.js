@@ -136,9 +136,31 @@ const server = http.createServer((req, res) => {
 
 server.listen(8080);
 
-// $ curl localhost:1337 -d "{}"
-// object
-// $ curl localhost:1337 -d "\"foo\""
-// string
-// $ curl localhost:1337 -d "not json"
-// error: Unexpected token o in JSON at position 1
+///////////////////////////////////////////////same as below
+const server = http.createServer((req, res) => {
+  // `req` is an http.IncomingMessage, which is a Readable Stream.
+  // `res` is an http.ServerResponse, which is a Writable Stream.
+  let body;
+  req = fs.createReadStream(__dirname + '/ExampleJSON.json', {encoding: 'utf8'});
+
+  // Get the data as utf8 strings.
+  // If an encoding is not set, Buffer objects will be received.
+
+  // Readable streams emit 'data' events once a listener is added.
+  req.on('data', (chunk) => {
+    try {
+      const data = JSON.parse(chunk);
+      //console.log(data);
+      // Write back something interesting to the user:
+      res.write(data.name + " is " + data.age + " years old");
+      res.end(", born in " + data.city);
+    } catch (er) {
+      // uh oh! bad json!
+      res.statusCode = 400;
+      return res.end(`error: ${er.message}`);
+    }
+  });
+
+});
+
+server.listen(8080);
