@@ -83,7 +83,7 @@ var server = http.createServer((req, res) => {
 }).listen(8080, '127.0.0.1');  /////////////createReadStream then res.write
 */
 ////////////////res is a wirteable stream
-
+/*
 var server = http.createServer((req, res) => {
   console.log('request was made: ' + req.url);
   res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -91,7 +91,7 @@ var server = http.createServer((req, res) => {
     .pipe(res);
 },'request').listen(8080, '127.0.0.1');//the 'request' parameter can be either pos1 or pos2?
 ////////same as below
-/*
+
 var server = http.createServer();
 server.on('request',(req,res) => {
   console.log('request was made: ' + req.url);
@@ -103,3 +103,42 @@ server.listen(8080, '127.0.0.1');
 
 */
 //////////////////////////////////////////////////////
+
+const server = http.createServer((req, res) => {
+  // `req` is an http.IncomingMessage, which is a Readable Stream.
+  // `res` is an http.ServerResponse, which is a Writable Stream.
+  let body;
+  req = fs.createReadStream(__dirname + '/ExampleJSON.json', 'utf8')
+
+  // Get the data as utf8 strings.
+  // If an encoding is not set, Buffer objects will be received.
+
+  // Readable streams emit 'data' events once a listener is added.
+  req.on('data', (chunk) => {
+    body = chunk;
+  });
+
+  // The 'end' event indicates that the entire body has been received.
+  req.on('end', () => {
+    try {
+      const data = JSON.parse(body);
+      //console.log(data);
+      // Write back something interesting to the user:
+      res.write(data.name + " is " + data.age + " years old");
+      res.end(", born in " + data.city);
+    } catch (er) {
+      // uh oh! bad json!
+      res.statusCode = 400;
+      return res.end(`error: ${er.message}`);
+    }
+  });
+});
+
+server.listen(8080);
+
+// $ curl localhost:1337 -d "{}"
+// object
+// $ curl localhost:1337 -d "\"foo\""
+// string
+// $ curl localhost:1337 -d "not json"
+// error: Unexpected token o in JSON at position 1
