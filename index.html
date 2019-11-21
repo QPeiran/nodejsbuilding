@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+    // node.js
+const API_URL = 'https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cat';
+function GetCG(){
+  fetch(API_URL)
+  .then(response => response.json())
+  .then(function (json) {
+    var image = document.createElement('img');
+    image.src = json.data.image_url;
+    document.body.appendChild(image);
+    //console.log(json.data.image_url);
+  } )
+}
+
+// Initialize and add the map
+function initMap() {
+  // The location of Uluru
+  var Akl = {lat: -36.918317, lng: 174.846288};
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: Akl});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: Akl, map: map});
+}
+    </script>
+    </head>
+
+<body>
+
+<h2>Guess what I am doing</h2>
+<div id="map"></div>
+
+
+<button type="button"
+onclick="document.getElementById('demo').innerHTML = GetCG()">
+Click me to display Date and Time.</button>
+
+<p id="demo"></p>
+First name: <input type="text" name="FirstName" value=""><br>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6alcrMfuUXRHco4c7Q7YA26GLGzdRlHs&callback=initMap">
+</script>
+</body>
+</html>
