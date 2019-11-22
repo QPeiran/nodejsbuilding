@@ -14,17 +14,6 @@ function GetCG(){
     //console.log(json.data.image_url);
   } )
 }
-
-// Initialize and add the map
-function initMap() {
-  // The location of Uluru
-  var Akl = {lat: -36.918317, lng: 174.846288};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: Akl});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: Akl, map: map});
-}
     </script>
     </head>
 
@@ -36,13 +25,9 @@ function initMap() {
 
 <button type="button"
 onclick="document.getElementById('demo').innerHTML = GetCG()">
-Click me to display Date and Time.</button>
+Click me to display Cat memes.</button>
 
-<p id="demo"></p>
-First name: <input type="text" name="FirstName" value=""><br>
 
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=[My Key]&callback=initMap">// this key has changed,use the API cred. from GCP console
-</script>
+
 </body>
 </html>
