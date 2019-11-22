@@ -18,6 +18,7 @@ server.on('request', (req,res) => {
       .then((data) => {
         let pdl = JSON.parse(data);
         res.write(pdl.name + " is " + pdl.age + " years old");
+        res.end(", born in " + pdl.city);
       });
       //.then()
   }
