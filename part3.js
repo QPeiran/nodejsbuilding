@@ -22,5 +22,10 @@ server.on('request', (req,res) => {
       });
       //.then()
   }
+  else
+  {
+    res.writeHead(404, {'Content-Type': 'text/html'});
+    res.end("404 bad request");
+  }
 });
 server.listen(8080, '127.0.0.1');

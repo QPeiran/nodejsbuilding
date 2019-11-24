@@ -1,1 +1,5 @@
-{"name":"Fresh Direct", "age":1, "city":"Auckland"}
+{
+  "name":"Fresh Direct",
+  "age":1,
+  "city":"Auckland"
+}
