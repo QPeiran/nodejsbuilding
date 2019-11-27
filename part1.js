@@ -23,10 +23,19 @@ function callBye(fun){
 callBye(sayBye);
 /////////////////////////////////////////////////////////////section 4: module and requir()
 
-const MyCount = require('./count');;
+/*
+const MyCount = require('./count');
 console.log(MyCount.counter(['Red','Green','Blue']));
-console.log(MyCount.adder(5,9));
 console.log(MyCount.adder(5, MyCount.pi));
+*/
+//a better way to use functions defined in the module:
+//by using {function defined in module} = require(module);
+//avoide creating a new variable which only used for calling methods in module
+
+const {adder} = require('./count');
+const {pi} = require('./count');
+console.log(adder(5,9));
+console.log(adder(2,pi));
 
 //////////////////////////////////////////////////////section 5:
 const events = require('events');
