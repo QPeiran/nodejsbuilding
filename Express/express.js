@@ -15,7 +15,8 @@
   });
 
   app.get('/profile/:name', function(req, res){
-    res.render('viewTemplate', {person: req.params.name});
+    var data = {age: 40, title: 'Manager', car: ['Wu', 'Ling', 'Hong', 'Guang']};
+    res.render('viewTemplate', {person: req.params.name, info: data});
   });
 
 
