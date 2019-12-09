@@ -7,7 +7,7 @@
  app.set('view engine', 'ejs');
 
   app.get('/', function(req, res){
-    res.sendFile('index.html', {'root': __dirname + '/../'}); // level up the path(to its parent folder)
+    res.sendFile('index.html',  {'root': __dirname + '/../'}); // level up the path(to its parent folder)
   });
 
   app.get('/readme', function(req, res){
