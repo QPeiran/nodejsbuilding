@@ -5,11 +5,11 @@ const express = require('express');
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use('/assets', function(req, res, next){
+/*app.use('/', function(req, res, next){
   console.log(req.url);
   next();
-})
-
+})*/
+app.use('/asset', express.static('assets'));
 
   app.get('/', function(req, res){
     res.sendFile('index.html',  {'root': __dirname + '/../'}); // level up the path(to its parent folder)
