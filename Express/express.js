@@ -9,7 +9,7 @@ app.set('view engine', 'ejs');
   console.log(req.url);
   next();
 })*/
-app.use('/asset', express.static('assets'));
+app.use('/assets', express.static('Style'));
 
   app.get('/', function(req, res){
     res.sendFile('index.html',  {'root': __dirname + '/../'}); // level up the path(to its parent folder)
