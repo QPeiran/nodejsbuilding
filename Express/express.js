@@ -9,14 +9,14 @@ app.set('view engine', 'ejs');
   console.log(req.url);
   next();
 })*/
-app.use('/assets', express.static('Style'));
+app.use('/Style', express.static('Style'));
 
   app.get('/', function(req, res){
     res.sendFile('index.html',  {'root': __dirname + '/../'}); // level up the path(to its parent folder)
   });
 
-  app.get('/readme', function(req, res){
-    res.sendFile('README.MD', {'root': __dirname + '/../'});
+  app.get('/contact', function(req, res){
+    res.render('contactTemplate');
   });
 
   app.get('/profile/:name', function(req, res){
